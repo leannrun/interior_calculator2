@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>인테리어 견적 계산기</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        input, select { margin: 10px; padding: 8px; }
+        button { padding: 10px 20px; background-color: #3498db; color: white; border: none; cursor: pointer; }
+        button:hover { background-color: #2980b9; }
+    </style>
+</head>
+<body>
+    <h1>인테리어 견적 계산기</h1>
+    <label for="area">면적 (㎡):</label>
+    <input type="number" id="area" placeholder="면적을 입력하세요" required><br>
+
+    <label for="space-type">공간 유형:</label>
+    <select id="space-type">
+        <option value="living">거실</option>
+        <option value="kitchen">주방</option>
+        <option value="bathroom">화장실</option>
+        <option value="bedroom">침실</option>
+    </select><br>
+
+    <label for="material">자재 선택:</label>
+    <select id="material">
+        <option value="premium">고급 자재</option>
+        <option value="standard">중급 자재</option>
+        <option value="basic">일반 자재</option>
+    </select><br>
+
+    <button onclick="calculateEstimate()">견적 계산하기</button>
+
+    <h2>예상 견적: <span id="result"></span> 원</h2>
+
+    <script>
+        function calculateEstimate() {
+            var area = document.getElementById('area').value;
+            var spaceType = document.getElementById('space-type').value;
+            var material = document.getElementById('material').value;
+
+            var basePrice = 0;
+
+            // 공간 유형에 따른 기본 단가 설정
+            if (spaceType === "living") basePrice = 500000;  // 거실
+            else if (spaceType === "kitchen") basePrice = 700000;  // 주방
+            else if (spaceType === "bathroom") basePrice = 600000;  // 화장실
+            else if (spaceType === "bedroom") basePrice = 400000;  // 침실
+
+            // 자재에 따른 추가 비용 설정
+            var materialMultiplier = 1;
+            if (material === "premium") materialMultiplier = 1.5;  // 고급 자재
+            else if (material === "standard") materialMultiplier = 1.2;  // 중급 자재
+            else if (material === "basic") materialMultiplier = 1;  // 일반 자재
+
+            // 면적에 따라 총 가격 계산
+            var totalEstimate = area * basePrice * materialMultiplier;
+
+            // 계산된 값을 출력
+            document.getElementById('result').innerText = totalEstimate.toLocaleString();
+        }
+    </script>
+</body>
+</html>
